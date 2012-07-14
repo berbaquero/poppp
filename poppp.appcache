@@ -1,0 +1,29 @@
+CACHE MANIFEST
+
+#version 1.0.3 13-7-2012
+
+CACHE:
+
+#images
+
+
+#internal HTML documents
+
+
+#style sheets
+http://dl.dropbox.com/u/1631373/Popppular/css/style.css
+
+#style sheet images
+http://dl.dropbox.com/u/1631373/Popppular/img/purty_wood.png
+
+#javascript files
+http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
+http://dl.dropbox.com/u/1631373/Popppular/js/scrollfix.js
+http://dl.dropbox.com/u/1631373/Popppular/js/mustache.js
+http://dl.dropbox.com/u/1631373/Popppular/js/tappable.js
+http://dl.dropbox.com/u/1631373/Popppular/js/swipe.js
+
+NETWORK:
+*
+http://dl.dropbox.com/u/1631373/Popppular/js/popppular.js
+http://dl.dropbox.com/u/1631373/Popppular/css/popppular.css
