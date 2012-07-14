@@ -6,7 +6,7 @@ if (navigator.standalone) {
     tappable = document.createElement("script"), swipe = document.createElement("script"),
     mustache = document.createElement("script"), jQuery = document.createElement("script");
 
-    popppJS.src = "js/popppular.js";
+    popppJS.src = "js/poppp.js";
     scrollFix.src = "js/scrollfix.js";
     tappable.src = "js/tappable.js";
     swipe.src = "js/swipe.js";
@@ -39,7 +39,7 @@ if (navigator.standalone) {
     pIcon.setAttribute("id", "miniphone");
 
     pMessage.setAttribute("id", "mensaje");
-    pMessage.innerHTML = "Agr&eacute;game al Home Screen, desde Safari, para instalar Popppular";
+    pMessage.innerHTML = "Agr&eacute;game al Home Screen, desde Safari, para instalar en el iPhone";
 
     section.appendChild(pIcon);
     section.appendChild(pMessage);

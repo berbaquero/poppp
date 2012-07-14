@@ -11,19 +11,19 @@ CACHE:
 
 
 #style sheets
-http://dl.dropbox.com/u/1631373/Popppular/css/style.css
+http://dl.dropbox.com/u/1631373/poppp/css/style.css
 
 #style sheet images
-http://dl.dropbox.com/u/1631373/Popppular/img/purty_wood.png
+http://dl.dropbox.com/u/1631373/poppp/img/purty_wood.png
 
 #javascript files
 http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
-http://dl.dropbox.com/u/1631373/Popppular/js/scrollfix.js
-http://dl.dropbox.com/u/1631373/Popppular/js/mustache.js
-http://dl.dropbox.com/u/1631373/Popppular/js/tappable.js
-http://dl.dropbox.com/u/1631373/Popppular/js/swipe.js
+http://dl.dropbox.com/u/1631373/poppp/js/scrollfix.js
+http://dl.dropbox.com/u/1631373/poppp/js/mustache.js
+http://dl.dropbox.com/u/1631373/poppp/js/tappable.js
+http://dl.dropbox.com/u/1631373/poppp/js/swipe.js
 
 NETWORK:
 *
-http://dl.dropbox.com/u/1631373/Popppular/js/popppular.js
-http://dl.dropbox.com/u/1631373/Popppular/css/popppular.css
+http://dl.dropbox.com/u/1631373/poppp/js/poppp.js
+http://dl.dropbox.com/u/1631373/poppp/css/poppp.css
