@@ -32,16 +32,26 @@ if (navigator.standalone) {
     document.head.appendChild(link);
 
     var section = document.createElement("section"),
-    p = document.createElement("p"),
+    pIcon = document.createElement("p"), pMessage = document.createElement("p"),
     icon = document.createElement("div");
 
-    p.innerHTML = "Agr&eacute;game al Home Screen, desde Safari, para instalar Popppular";
+    pIcon.innerHTML = "<img src='img/miniphone.png' />";
+    pIcon.setAttribute("id", "miniphone");
 
-    section.appendChild(p);
+    pMessage.setAttribute("id", "mensaje");
+    pMessage.innerHTML = "Agr&eacute;game al Home Screen, desde Safari, para instalar Popppular";
+
+    section.appendChild(pIcon);
+    section.appendChild(pMessage);
 
     container.appendChild(section);
 
     icon.className = "arrow";
 
     container.appendChild(icon);
+
+    setTimeout(function() {
+        scrollTo(0,0);
+    }, 3500);
+
 }

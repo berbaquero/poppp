@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 	var shotTemplate = "{{#shots}}<article class='shotWrap'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}";
 
-	var sliderTemplate = "<div id='slider'><div>{{#shots}}<div><div><img class='shotImage' src='{{image_url}}' /><p>{{title}}</p></div></div>{{/shots}}</div></div>";
+	var sliderTemplate = "<div id='slider'><div>{{#shots}}<div><div><img class='shotImage' src='{{image_url}}' /><p data-url='{{short_url}}'>{{title}}</p></div></div>{{/shots}}</div></div>";
 	
 	var page = 1, perPage = 20, ancho = 320, activeView = 1, slider;
 
@@ -44,6 +44,22 @@ $(document).ready(function() {
 	        $(target).addClass("invisible");
 	        slideFromLeft();
 	    }
+	});
+
+	tappable("#slider div div div p", {
+		onTap: function(e, target) {
+			var open = window.confirm("Open dribbble shot in Safari?");
+			if(open) {
+				url = $(target).attr("data-url");
+				var a = document.createElement('a');
+			    a.setAttribute("href", url);
+			    a.setAttribute("target", "_blank");
+
+			    var dispatch = document.createEvent("HTMLEvents")
+			    dispatch.initEvent("click", true, true);
+			    a.dispatchEvent(dispatch);
+			}
+		}
 	});
 
     var scrollable = document.getElementById('container');

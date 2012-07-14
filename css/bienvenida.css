@@ -6,16 +6,16 @@ html {
 
 section {
 	padding: 20px;
-	margin-top: 100px;
+	margin-top: 65px;
 }
 
 section p {
 	font-family: 'Helvetica';
 	width: 50%;
 	margin: 0 auto;
-	border: gray 3px solid;
 	padding: 15px;
-	border-radius: 8px;
+	color: white;
+	font-weight: bold;
 }
 
 .arrow {
@@ -25,4 +25,23 @@ section p {
 	border-right: 20px solid transparent;
 	border-top: 40px solid white;
 	margin: 25px auto;
+}
+
+#miniphone {
+	text-align: center;
+}
+
+#miniphone img {
+	background-color: white;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+#mensaje {
+	text-align: center;
+	width: 61%;
+	border: 2px white solid;
+	border-radius: 8px;
+	text-shadow: 1px 2px 0px rgba(139, 69, 19, .5);
+	font-size: 14px;
 }

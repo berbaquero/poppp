@@ -1,9 +1,9 @@
 body {
     overflow: hidden;
     background-attachment: fixed;
-    background-color: black;
+    background-color: #333;
     border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;    
+    border-bottom-right-radius: 8px;
     background-image: url("../img/purty_wood.png");
     height: 100%;
 }
@@ -30,15 +30,15 @@ header div {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     height: 44px;
-    -webkit-box-shadow: 0px 3px 10px rgba(50, 50, 50, 0.7);
+    box-shadow: 0px 3px 10px rgba(50, 50, 50, 0.7);
 }
 
-header p {
+#title {
     color: white;
     text-align: center;
     font-size: 22px;
     margin: 0;
-    padding-top: 10px;
+    padding-top: 8px;
     font-family: 'Berkshire Swash';
 }
 
@@ -66,12 +66,14 @@ header p {
     background-position: center;
     border-radius: 8px;
     box-shadow: 0px 5px 5px rgba(139, 69, 19, 0.5);
+    /*box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);*/
 }
 
 .shotImage {
     width: 100%;    
     border: 3px white solid;
     box-shadow: 0px 5px 5px rgba(139, 69, 19, 0.5);
+    /*box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);*/
 }
 
 .shotTitle {
@@ -88,7 +90,6 @@ header p {
 .view {
     position: absolute;
     width: 100%;
-    /*height: 100%;*/
     top: 44px; bottom: 0;
     z-index: 1;
 }
@@ -127,6 +128,10 @@ header p {
 
 #slider div div div p {
     text-align: center;
+    font-weight: bold;
+    color: white;
+    margin-top: 25px;
+    text-shadow: 1px 2px 0px rgba(139, 69, 19, .5);
 }
 
 .fuera {
