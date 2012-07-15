@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 	var sliderTemplate = "<div id='slider'><div>{{#shots}}<div><div><img class='shotImage' src='{{image_url}}' /><p data-url='{{short_url}}'>{{title}}</p></div></div>{{/shots}}</div></div>";
 	
-	var page = 1, perPage = 20, ancho = 320, activeView = 1, slider;
+	var page = 1, perPage = 30, ancho = 320, activeView = 1, slider;
 
 	var loadShots = function() {
 		var main = $("#wrapper");
