@@ -49,9 +49,4 @@ if (navigator.standalone) {
     icon.className = "arrow";
 
     container.appendChild(icon);
-
-    setTimeout(function() {
-        scrollTo(0,0);
-    }, 3500);
-
 }
