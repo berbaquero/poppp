@@ -4,6 +4,7 @@ body {
     background-color: #333;
     background-image: url("../img/purty_wood.png");
     height: 100%;
+    -webkit-user-select:none;
 }
 
 * {
@@ -35,9 +36,10 @@ header div {
     color: white;
     text-align: center;
     font-size: 22px;
-    margin: 0;
+    margin: 0 auto;
     padding-top: 8px;
     font-family: 'Berkshire Swash';
+    width: 65px;
 }
 
 #container {
@@ -114,7 +116,7 @@ header div {
     height: 100%;
     overflow: auto;
     position: relative;
-    -webkit-overflow-scrolling: touch;    
+    -webkit-overflow-scrolling: touch;
     padding: 10px 5px;
 }
 
@@ -130,7 +132,8 @@ header div {
     text-align: center;
     font-weight: bold;
     color: white;
-    margin-top: 25px;
+    padding: 25px;
+    margin: 0;
     text-shadow: 1px 2px 0px rgba(139, 69, 19, .5);
 }
 
@@ -186,4 +189,9 @@ footer p {
     opacity: 1;
     font-weight: bold;
     padding: 20px 10px;
+}
+
+.title-active {
+    text-shadow: none !important;
+    color: rgba(139, 69, 19, 1) !important;
 }

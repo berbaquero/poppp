@@ -5,7 +5,7 @@ $(document).ready(function() {
     var sliderTemplate = "<div id='slider'><div>{{#shots}}<div><div><img class='shotImage' data-img='{{image_url}}' src='{{image_teaser_url}}' /><p data-url='{{short_url}}'>{{title}}</p></div></div>{{/shots}}</div></div>";
 	
     var page = 1, perPage = 30, ancho = 320, activeView = 1, slider,
-    sobre = "Poppp te da acceso r&aacute;pido a los Shots m&aacute;s populares de Dribbble, que son una tremenda fuente de inspiraci&oacute;n (por lo menos para m&iacute;. Espero que la encuentres &uacute;til tambi&eacute;n :)";
+    sobre = "Gracias por llegar hasta ac&aacute;! Poppp te da acceso r&aacute;pido a los Shots m&aacute;s populares de Dribbble, que son una tremenda fuente de inspiraci&oacute;n (para m&iacute;, al menos). Espero que la encuentres &uacute;til tambi&eacute;n, y te invito a que me env&iacute;es sugerencias :)";
 
     var loadShots = function() {
         var main = $("#wrapper");
@@ -46,10 +46,6 @@ $(document).ready(function() {
         e.preventDefault();
     }, false);
 
-    $(".shotImage").on('doubleclick', function(e) {
-        window.alert("Por Favoritear!");
-    });
-
     tappable(".shotWrap", {
         onTap: function(e, target) {
             var id = $(target).attr("data-shot");
@@ -79,7 +75,8 @@ $(document).ready(function() {
                 dispatch.initEvent("click", true, true);
                 a.dispatchEvent(dispatch);
             }
-        }
+        },
+        activeClass: "title-active"
     });
 
     tappable("#title", {
