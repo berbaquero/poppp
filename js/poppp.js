@@ -10,7 +10,7 @@ $(document).ready(function() {
     var loadShots = function() {
         var main = $("#wrapper");
         main.append("<p class='loading'>Cargando shots...</p>");
-        $.getJSON("http://api.dribbble.com/shots/popular?page=" + page + "&per_page=" + perPage + "&callback=?", function(data) {
+        $.getJSON("//api.dribbble.com/shots/popular?page=" + page + "&per_page=" + perPage + "&callback=?", function(data) {
             $(".loading").remove();
             var html = Mustache.to_html(shotTemplate, data);
             main.append(html);
@@ -33,7 +33,7 @@ $(document).ready(function() {
             });
             page++;
         });
-    }
+    };
 
     window.applicationCache.addEventListener("updateready", function(e) {
         var update = window.confirm("Update descargado. Recargar para actualizar?");
@@ -71,7 +71,7 @@ $(document).ready(function() {
                 a.setAttribute("href", url);
                 a.setAttribute("target", "_blank");
 
-                var dispatch = document.createEvent("HTMLEvents")
+                var dispatch = document.createEvent("HTMLEvents");
                 dispatch.initEvent("click", true, true);
                 a.dispatchEvent(dispatch);
             }
@@ -97,7 +97,7 @@ $(document).ready(function() {
         setTimeout(function() {
             main.addClass("slideTransition").css('-webkit-transform', 'translate3d(' + ancho + 'px, 0px, 0px)');
             det.addClass("slideTransition").css('-webkit-transform', 'translate3d(' + ancho + 'px, 0px, 0px)');
-            setTimeout(function() {           
+            setTimeout(function() {
                 main.removeClass("slideTransition").css({
                     "-webkit-transform": "",
                     "left": ""
@@ -110,7 +110,7 @@ $(document).ready(function() {
             }, 350);
         }, 50);
         activeView = 1;
-    }
+    };
 
     var slideFromRight = function () {
         var main = $("#mainView");
@@ -119,13 +119,13 @@ $(document).ready(function() {
         setTimeout(function() {
             main.addClass("slideTransition").css('-webkit-transform', 'translate3d(-' + ancho + 'px, 0px, 0px)');
             det.addClass("slideTransition").css('-webkit-transform', 'translate3d(-' + ancho + 'px, 0px, 0px)');
-            setTimeout(function () { // Quita las propiedades de transition            
+            setTimeout(function () { // Quita las propiedades de transition
                 det.css("left", 0).removeClass("slideTransition").css("-webkit-transform", "");
                 main.removeClass("slideTransition").addClass("fuera").css("-webkit-transform", "");
             }, 350);
         }, 100);
         activeView = 2;
-    }
+    };
 
     var reveal = function(element) {
         var el = $(element);
@@ -133,35 +133,35 @@ $(document).ready(function() {
         setTimeout(function() {
             el.removeClass("invisible");
         });
-    }
+    };
 
     // Metodos de vistas
 
     var mostrar = function (element) {
         var el = $(element);
         el.removeClass("oculto");
-    }
+    };
 
     var sacar = function (element) {
         var el = $(element);
         el.addClass("fuera");
-    }
+    };
 
     var ingresar = function(element) {
         var el = $(element);
         el.removeClass("fuera");
         return el;
-    }
+    };
 
     var ocultar = function(element) {
         var el = $(element);
         el.addClass("oculto");
-    }
+    };
 
     var ensenar = function(element) {
         var el = $(element);
         el.removeClass("invisible");
-    }
+    };
 
     var about = "<section class='fuera slideTransition' id='sobre'><div><p></p><p>Hecha en una Mac. Hacks por <a href='http://twitter.com/berbaquero'>@BerBaquero</a></p></div></section>";
 
