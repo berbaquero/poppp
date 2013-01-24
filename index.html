@@ -1,28 +1,41 @@
 <!doctype html>
 <html>
-        <head>
-                <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
-                <title>Poppp - Latest popular Dribbble shots</title>
+        <title>Poppp - Latest popular Dribbble shots</title>
 
-                <meta name="description" content="Una web app móvil minimalista, para ver los shots más populares de Dribbble.">
-                <meta name="viewport" content="width=device-width, user-scalable=0">
-                <meta name="author" content="Bernardo Baquero Stand">
+        <meta name="description" content="Mobile web-app to easily view the latest popular Dribbble shots.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <meta name="author" content="Bernardo Baquero Stand">
 
-                <meta name="apple-mobile-web-app-capable" content="yes">
-                <meta name="apple-mobile-web-app-status-bar-style" content="black">
-                <link rel="apple-touch-icon" sizes="114x114" href="img/homeIcon.png">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Poppp">
+        <link rel="apple-touch-icon" sizes="114x114" href="img/homeIcon.png">
 
-                <link rel="stylesheet" href="css/style.css">
-                <link rel="stylesheet" href="css/poppp.css">
-                <link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
-        </head>
-        <body>                
-                <header>
-                        <section id="navBack" class="invisible"><article class="backArrow"></article></section>
-                        <div><p id='title'>Poppp</p></div>
-                </header>
-                <div id="container"></div>
-                <script type="text/javascript" src="js/iniciar.js"></script>
-        </body>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/poppp.css">
+        <link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
+        
+        <script>if(location.hostname==='berbaquero.github.com'){var _gaq=[['_setAccount','UA-XXXXXXX-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))}</script>
+    </head>
+    <body>
+
+        <header>
+            <section id="navBack" class="invisible"><article class="backArrow"></article></section>
+            <div><p id='title'>Poppp</p></div>
+        </header>
+
+        <div id="container">
+            <div class="view" id="mainView">
+                <div id="wrapper"></div>
+            </div>
+            <div class="view fuera" id="detailView"></div>
+        </div>
+        
+        <script type="text/javascript" src="js/zepto.js"></script>
+        <script type="text/javascript" src="js/libs.js"></script>
+        <script type="text/javascript" src="js/poppp.js"></script>
+    </body>
 </html>
