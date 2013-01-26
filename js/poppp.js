@@ -9,8 +9,8 @@
         slider, ancho, shots = {};
 
     // Templates
-    var shotTemplate = "{{#shots}}<article class='shotWrap' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div id='load-more'>More!</div>",
         detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>By {{player.name}}</p><p id='heart'>{{likes_count}}</p></div>";
+    var shotTemplate = "{{#shots}}<article class='shotWrap' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div class='load-more'>Load more</div>",
 
     // Main functions
 
@@ -70,11 +70,12 @@
         }
     });
 
-    tappable("#load-more", {
+    tappable(".load-more", {
         onTap: function(e, target) {
             $(target).remove();
             loadShots();
-        }
+        },
+        activeClass: 'load-more-active'
     });
 
     tappable("#navBack", {

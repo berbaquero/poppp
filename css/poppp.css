@@ -177,7 +177,7 @@ header > div + div {
     width: 0;
 }
 
-#load-more {
+.load-more {
     color: #F5F5F5;
     background-color: #555;
     clear: both;
@@ -185,11 +185,17 @@ header > div + div {
     border-radius: 5px;
     padding: 5px 0;
     border-top: 1px solid #777;
-    border-bottom: 1px solid #333;
     cursor: pointer;
     font-size: 14px;
     line-height: 24px;
     font-weight: bold;
+    box-shadow: 0 2px 1px #222;
+}
+
+.load-more-active {
+    border-top: 1px solid #222;
+    box-shadow: none;
+    border-bottom: 1px solid #777;
 }
 
 .main-message {
