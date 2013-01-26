@@ -24,6 +24,7 @@
                 page++;
             });
         };
+    var shotTemplate = "{{#shots}}<article class='shotWrap' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div id='load-more'>More!</div>",
         detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>By {{player.name}}</p><p id='heart'>{{likes_count}}</p></div>";
 
     // Taps
@@ -36,6 +37,13 @@
             setTimeout(function() {
                 button.removeClass('invisible');
             }, 10);
+        }
+    });
+
+    tappable("#load-more", {
+        onTap: function(e, target) {
+            $(target).remove();
+            loadShots();
         }
     });
 
