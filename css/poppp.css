@@ -51,8 +51,11 @@ header > div + div {
     margin: 0 auto;
     padding-top: 8px;
     font-family: 'Berkshire Swash';
-    width: 65px;
+    width: 77%;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 #container {
@@ -174,7 +177,6 @@ header > div + div {
     width: 0;
 }
 
-.loading {
 #load-more {
     color: #F5F5F5;
     background-color: #555;
@@ -189,6 +191,8 @@ header > div + div {
     line-height: 24px;
     font-weight: bold;
 }
+
+.main-message {
     color: #F5F5F5;
     width: 100%;
     text-align: center;

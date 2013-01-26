@@ -1,15 +1,18 @@
 (function(win) {
-
+    // "Globals"
     var doc = win.document,
         body = doc.body,
-        shotTemplate = "{{#shots}}<article class='shotWrap'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}",
         page = 1,
         perPage = 30,
-        ancho = doc.body.offsetWidth,
         activeView = 1,
-        slider;
+        channel = 'popular',
+        slider, ancho, shots = {};
+
+    // Templates
     var shotTemplate = "{{#shots}}<article class='shotWrap' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div id='load-more'>More!</div>",
         detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>By {{player.name}}</p><p id='heart'>{{likes_count}}</p></div>";
+
+    // Main functions
 
     function loadShots(loadingMore) {
         $("#mainWrap").append("<p class='main-message'>Loading shots...</p>");
@@ -39,10 +42,25 @@
 
         page++;
     }
+
+    // Misc functions
+
+    function getURL() {
+        return "//api.dribbble.com/shots/" + channel + "?page=" + page + "&per_page=" + perPage + "&callback=?";
+    }
+
+    function getWidth() {
+        ancho = doc.body.offsetWidth;
+    }
+
     // Taps
     tappable(".shotWrap", {
         onTap: function(e, target) {
-            var id = $(target).attr("data-shot");
+            var id = $(target).attr("data-shot-id");
+            var det = $('#detailWrap');
+            var html = Mustache.to_html(detailTemplate, shots[id]);
+            det.html(html);
+            $("#title").text(shots[id].title);
             slideFromRight();
             var button = $("#navBack");
             button.removeClass('hide');
@@ -63,6 +81,7 @@
         onTap: function(e, target) {
             var button = $(target);
             button.addClass("invisible");
+            $('#title').text('Poppp');
             setTimeout(function() {
                 button.addClass("hide");
             }, 351);
@@ -74,6 +93,7 @@
     var slideFromLeft = function() { // >>>
             var main = $("#mainView");
             var det = $("#detailView");
+            getWidth();
             main.css("left", -ancho);
             setTimeout(function() {
                 main.addClass("slideTransition").css('-webkit-transform', 'translate3d(' + ancho + 'px, 0px, 0px)');
@@ -96,6 +116,7 @@
     var slideFromRight = function() { // <<<
             var main = $("#mainView");
             var det = $("#detailView");
+            getWidth();
             det.css("left", ancho);
             setTimeout(function() {
                 var translate = 'translate3d(-' + ancho + 'px, 0px, 0px)';
