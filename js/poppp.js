@@ -23,8 +23,8 @@
                 showShots(result);
             },
             error: function() {
-                $('.main-message').text("Err! Couldn't load shots.");
-                $("#mainWrap").append("<div id='load-more'>Try reloading</div>");
+                $('.main-message').text("Oops! Couldn't load shots. :(");
+                $("#mainWrap").append("<div class='load-more'>Try reloading</div>");
             }
         });
     }
