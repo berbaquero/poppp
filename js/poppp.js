@@ -9,8 +9,8 @@
         slider, ancho, shots = {};
 
     // Templates
-        detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>By {{player.name}}</p><p id='heart'>{{likes_count}}</p></div>";
     var shotTemplate = "{{#shots}}<article class='shotWrap' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div class='load-more'>Load more</div>",
+        detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>By {{player.name}}</p><p>{{likes_count}}</p></div><div id='force-overflow'></div>";
 
     // Main functions
 
@@ -53,6 +53,16 @@
         ancho = doc.body.offsetWidth;
     }
 
+    function scrollFixDetail() {
+        var detWrap = doc.querySelector('#detailWrap');
+        var detailWrapHeight = detWrap.offsetHeight;
+        getWidth();
+        var relativeImageHeight = (ancho) * 0.75;
+        var shotInfoHeight = detWrap.querySelector('#shot-info').offsetHeight;
+        var minHeight = detailWrapHeight - relativeImageHeight - shotInfoHeight;
+        $('#force-overflow').css('min-height', minHeight + 1);
+    }
+
     // Taps
     tappable(".shotWrap", {
         onTap: function(e, target) {
@@ -66,6 +76,7 @@
             button.removeClass('hide');
             setTimeout(function() {
                 button.removeClass('invisible');
+                scrollFixDetail();
             }, 10);
         }
     });
