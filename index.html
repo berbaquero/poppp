@@ -23,15 +23,22 @@
     <body>
 
         <header>
-            <section id="navBack" class="invisible"><article class="backArrow"></article></section>
-            <div><p id='title'>Poppp</p></div>
+            <div id="navBack" class="invisible hide">
+                <div class="backArrow"></div>
+            </div>
+            <div>
+                <p id='title'>Poppp</p>
+            </div>
         </header>
 
         <div id="container">
             <div class="view" id="mainView">
-                <div id="wrapper"></div>
+                <div id="menu"></div>
+                <div class="wrapper" id="mainWrap"></div>
             </div>
-            <div class="view fuera" id="detailView"></div>
+            <div class="view fuera" id="detailView">
+                <div class="wrapper" id="detailWrap"></div>
+            </div>
         </div>
         
         <script type="text/javascript" src="js/zepto.js"></script>
