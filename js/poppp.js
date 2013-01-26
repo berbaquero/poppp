@@ -8,25 +8,37 @@
         ancho = doc.body.offsetWidth,
         activeView = 1,
         slider;
-
-    var loadShots = function() {
-            var main = $("#mainWrap");
-            main.append("<p class='loading'>Loading shots...</p>");
-            $.getJSON("//api.dribbble.com/shots/popular?page=" + page + "&per_page=" + perPage + "&callback=?", function(data) {
-                $(".loading").remove();
-                var html = Mustache.to_html(shotTemplate, data);
-                main.append(html);
-
-                var lista = $(".shotWrap");
-                $.each(lista, function(i, s) {
-                    $(s).attr("data-shot", i);
-                });
-                page++;
-            });
-        };
     var shotTemplate = "{{#shots}}<article class='shotWrap' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div id='load-more'>More!</div>",
         detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>By {{player.name}}</p><p id='heart'>{{likes_count}}</p></div>";
 
+    function loadShots(loadingMore) {
+        $("#mainWrap").append("<p class='main-message'>Loading shots...</p>");
+        $.ajax({
+            dataType: 'jsonp',
+            url: getURL(),
+            success: function(result) {
+                showShots(result);
+            },
+            error: function() {
+                $('.main-message').text("Err! Couldn't load shots.");
+                $("#mainWrap").append("<div id='load-more'>Try reloading</div>");
+            }
+        });
+    }
+
+    function showShots(data) {
+        $(".main-message").remove();
+        var html = Mustache.to_html(shotTemplate, data);
+        $("#mainWrap").append(html);
+
+        var loadedShots = data.shots;
+        for(var i = 0; i < loadedShots.length; i++) {
+            if(shots[loadedShots.id]) continue;
+            shots[loadedShots[i].id] = loadedShots[i];
+        }
+
+        page++;
+    }
     // Taps
     tappable(".shotWrap", {
         onTap: function(e, target) {
