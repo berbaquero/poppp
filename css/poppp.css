@@ -109,6 +109,47 @@ header > div + div {
     -webkit-transform: translate3d(0, 0, 0);
 }
 
+/* Detail View */
+
+#detail-image {
+    padding: 0 0 5px;
+}
+
+#detail-image img {
+    width: 100%;
+    border: 3px solid #F5F5F5;
+}
+
+#shot-info > p {
+    color: whitesmoke;
+    font-size: 14px;
+    margin: 5px;
+    padding: 0 5px;
+    text-align: center;
+    text-shadow: 0 1px 1px black;
+}
+#shot-info {
+    margin: 0 -5px;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px, rgba(255, 255, 255, 0.1) 0px 1px 0px inset;
+    padding: 10px 0;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#shot-info > p:first-child {
+    font-weight: bold;
+}
+
+#shot-info > p + p + p::before {
+    content: '\2665';
+    color: red;
+    display: inline-block; 
+    font-size: 20px;
+    width: 20px;
+    line-height: 10px;
+}
+
 .slideTransition { 
     -webkit-transition-duration: 350ms;
     -moz-transition-duration: 350ms;

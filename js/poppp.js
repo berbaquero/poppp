@@ -24,6 +24,7 @@
                 page++;
             });
         };
+        detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>By {{player.name}}</p><p id='heart'>{{likes_count}}</p></div>";
 
     // Taps
     tappable(".shotWrap", {
