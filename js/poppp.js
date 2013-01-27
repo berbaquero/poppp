@@ -5,8 +5,9 @@
         page = 1,
         perPage = 30,
         activeView = 1,
+        showingMenu = 0,
         channel = 'popular',
-        slider, ancho, shots = {};
+        ancho, shots = {};
 
     // Templates
     var shotTemplate = "{{#shots}}<article class='shotWrap' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div class='load-more'>Load more</div>",
@@ -63,19 +64,28 @@
         $('#force-overflow').css('min-height', minHeight + 1);
     }
 
+    function toggleMenu(show) {
+        showingMenu = show ? 0 : 1;
+        $('#menu').css('-webkit-transform', show ? 'translate3d(0, 0, 0)' : 'translate3d(0, 344px, 0)');
+    }
+
     // Taps
     tappable(".shotWrap", {
         onTap: function(e, target) {
+            if(showingMenu) toggleMenu(showingMenu);
             var id = $(target).attr("data-shot-id");
             var det = $('#detailWrap');
             var html = Mustache.to_html(detailTemplate, shots[id]);
             det.html(html);
             $("#title").text(shots[id].title);
             slideFromRight();
-            var button = $("#navBack");
-            button.removeClass('hide');
+            var backButton = $("#navBack");
+            backButton.removeClass('hide');
+            var menuButton = $('#show-menu');
+            menuButton.addClass('invisible');
             setTimeout(function() {
-                button.removeClass('invisible');
+                backButton.removeClass('invisible');
+                menuButton.addClass('hide');
                 scrollFixDetail();
             }, 10);
         }
@@ -83,6 +93,7 @@
 
     tappable(".load-more", {
         onTap: function(e, target) {
+            if(showingMenu) toggleMenu(showingMenu);
             $(target).remove();
             loadShots();
         },
@@ -91,14 +102,44 @@
 
     tappable("#navBack", {
         onTap: function(e, target) {
-            var button = $(target);
-            button.addClass("invisible");
+            var backButton = $(target);
+            backButton.addClass("invisible");
+            var menuButton = $('#show-menu');
+            menuButton.removeClass('hide');
             $('#title').text('Poppp');
             setTimeout(function() {
-                button.addClass("hide");
+                backButton.addClass("hide");
+                menuButton.removeClass('invisible');
             }, 351);
             slideFromLeft();
-        }
+        },
+        activeClass: 'btn-active'
+    });
+
+    tappable("#show-menu", {
+        onTap: function() {
+            if(activeView !== 1) return;
+            toggleMenu(showingMenu);
+        },
+        activeClass: 'btn-active'
+    });
+
+    tappable('#menu > p', {
+        onTap: function(e, target) {
+            var choice = $(target),
+                choiceText = choice.text().toLowerCase();
+            if(choiceText === channel) return;
+            channel = choiceText;
+            page = 1;
+            $('.menu-active').removeClass('menu-active');
+            choice.addClass('menu-active');
+            toggleMenu(showingMenu);
+            setTimeout(function() {
+                $('#mainWrap').empty();
+                loadShots();
+            }, 351);
+        },
+        activeClass: 'menu-active'
     });
 
     // Animaciones

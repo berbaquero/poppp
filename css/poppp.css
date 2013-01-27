@@ -35,7 +35,7 @@ header {
     border-bottom: 1px solid #580707;
 }
 
-header > div + div {
+header > div + div + div {
     background-image:-webkit-linear-gradient(top, #FF4040 0%, #A60000 100%);
     background-image: -moz-linear-gradient(top, #FF4040 0%, #A60000 100%);
     background-image: linear-gradient(top, #FF4040 0%, #A60000 100%);
@@ -160,14 +160,20 @@ header > div + div {
     transition-duration: 350ms;
 }
 
+.btn {
+    -webkit-transition-duration: 350ms;
+    -moz-transition-duration: 350ms;
+    transition-duration: 350ms;
+    border-radius: 5px;
+}
+
+.btn-active { background-color: rgba(0, 0, 0, 0.3); }
+
 #navBack {
     position: absolute;
     padding: 8px;
     top: 6px;
     left: 6px;
-    -webkit-transition-duration: 350ms;
-    -moz-transition-duration: 350ms;
-    transition-duration: 350ms;
 }
 
 .backArrow {
@@ -177,6 +183,49 @@ header > div + div {
     height: 0;
     width: 0;
 }
+
+#show-menu {
+    background-image: url('../img/ham.png');
+    background-position: center;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    background-repeat: no-repeat;
+    top: 8px;
+    left: 12px;
+}
+
+#menu {
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-transition-duration: 350ms;
+    width: 100%;
+    background-color: #222;
+    color: whiteSmoke;
+    position: absolute;
+    top: -300px;
+    z-index: 99;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 2px 9px #333;
+}
+
+#menu > p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: whiteSmoke;
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px, rgba(255, 255, 255, 0.1) 0px 1px 0px inset;
+}
+
+#menu > p:last-child { border-bottom: 0; box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px inset; }
+
+#menu > p::before { content: '\2605'; position: absolute; color: whiteSmoke; }
+
+.menu-active { text-shadow: 0 0 7px whitesmoke; }
 
 .load-more {
     color: #F5F5F5;
@@ -193,17 +242,9 @@ header > div + div {
     box-shadow: 0 2px 1px #222;
 }
 
-.load-more-active {
-    border-top: 1px solid #222;
-    box-shadow: none;
-    border-bottom: 1px solid #777;
-}
+.load-more-active { border-top: 1px solid #222; box-shadow: none; border-bottom: 1px solid #777; }
 
-.main-message {
-    color: #F5F5F5;
-    width: 100%;
-    text-align: center;
-}
+.main-message { color: #F5F5F5; width: 100%; text-align: center; }
 
 #force-overflow { width: 100%; }
 
