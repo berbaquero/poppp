@@ -81,23 +81,24 @@ header {
     overflow: auto;
     position: relative;
     -webkit-overflow-scrolling: touch;
-    padding: 10px 5px;
+    padding: 5px 5px 10px;
 }
 
 .shotWrap {
     height: 108px;
     width: 50%;
     float: left;
-    margin: 0 0 8px 0;
-    padding: 0 2.5px;
 }
+
+.shotWrap:nth-last-child(-n+2) { margin-bottom: 7px; }
 
 .shot {
     height: 100%;
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
-    border-radius: 5px;
+    border-radius: 6px;
+    border: 3px solid #333;
 }
 
 .shotImage {
