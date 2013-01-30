@@ -238,4 +238,12 @@
         }
     });
 
+    var isDesktop = !/iPhone|iPod|iPad|Android/.test(navigator.userAgent);
+    if(isDesktop) {
+        var deskLink = document.createElement('link');
+        deskLink.rel = 'stylesheet';
+        deskLink.href = 'css/desk.css';
+        document.head.appendChild(deskLink);
+    }
+
 })(window);
