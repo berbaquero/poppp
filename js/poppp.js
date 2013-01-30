@@ -15,7 +15,7 @@
 
     // Main functions
 
-    function loadShots(loadingMore) {
+    function loadShots() {
         $("#mainWrap").append("<p class='main-message'>Loading shots...</p>");
         $.ajax({
             dataType: 'jsonp',
