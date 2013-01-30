@@ -110,14 +110,9 @@ header {
 
 /* Detail View */
 
-#detail-image {
-    padding: 0 0 5px;
-}
+#detail-image { padding: 0 0 5px; }
 
-#detail-image img {
-    width: 100%;
-    border: 3px solid #F5F5F5;
-}
+#detail-image img { width: 100%; border: 3px solid #F5F5F5; }
 
 #shot-info > p {
     color: whitesmoke;
@@ -136,9 +131,7 @@ header {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-#shot-info > p:first-child {
-    font-weight: bold;
-}
+#shot-info > p:first-child { font-weight: bold; }
 
 #shot-info > p + p + p::before {
     content: '\2665';
