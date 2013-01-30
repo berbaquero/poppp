@@ -27,20 +27,14 @@ html { height: 100%; }
 a { color: #999; }
 
 header {
-    background-color: black;
     top: 0;
     width: 100%;
     position: fixed;
     z-index: 2;
     border-bottom: 1px solid #580707;
-}
-
-header > div + div + div {
     background-image:-webkit-linear-gradient(top, #FF4040 0%, #A60000 100%);
     background-image: -moz-linear-gradient(top, #FF4040 0%, #A60000 100%);
     background-image: linear-gradient(top, #FF4040 0%, #A60000 100%);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
     height: 44px;
     box-shadow: 0 3px 10px rgba(50, 50, 50, 0.7);
 }
@@ -161,38 +155,31 @@ header > div + div + div {
 }
 
 .btn {
-    -webkit-transition-duration: 350ms;
-    -moz-transition-duration: 350ms;
-    transition-duration: 350ms;
-    border-radius: 5px;
+    -webkit-transition-duration: 200ms;
+    -moz-transition-duration: 200ms;
+    transition-duration: 200ms;
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    top: 0;
 }
 
 .btn-active { background-color: rgba(0, 0, 0, 0.3); }
-
-#navBack {
-    position: absolute;
-    padding: 8px;
-    top: 6px;
-    left: 6px;
-}
 
 .backArrow {
     border-bottom: 10px solid transparent;
     border-right: 17px solid white;
     border-top: 10px solid transparent;
-    height: 0;
     width: 0;
+    margin: 0 auto;
+    position: relative;
+    top: 12px;
 }
 
 #show-menu {
     background-image: url('../img/ham.png');
     background-position: center;
-    width: 32px;
-    height: 32px;
-    position: absolute;
     background-repeat: no-repeat;
-    top: 8px;
-    left: 12px;
 }
 
 #menu {
@@ -223,7 +210,7 @@ header > div + div + div {
 
 #menu > p:last-child { border-bottom: 0; box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px inset; }
 
-#menu > p::before { content: '\2605'; position: absolute; color: whiteSmoke; }
+#menu > p::before { content: '\2605'; position: absolute; color: whiteSmoke; left: 14px; }
 
 .menu-active { text-shadow: 0 0 7px whitesmoke; }
 
