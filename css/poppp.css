@@ -106,6 +106,10 @@ header {
     border: 3px white solid;
     -webkit-backface-visibility: hidden;
     -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
 /* Detail View */
@@ -145,12 +149,16 @@ header {
 .slideTransition { 
     -webkit-transition-duration: 350ms;
     -moz-transition-duration: 350ms;
+    -ms-transition-duration: 350ms;
+    -o-transition-duration: 350ms;
     transition-duration: 350ms;
 }
 
 .btn {
     -webkit-transition-duration: 200ms;
     -moz-transition-duration: 200ms;
+    -ms-transition-duration: 200ms;
+    -o-transition-duration: 200ms;
     transition-duration: 200ms;
     width: 44px;
     height: 44px;
@@ -178,7 +186,15 @@ header {
 
 #menu {
     -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
     -webkit-transition-duration: 350ms;
+    -moz-transition-duration: 350ms;
+    -ms-transition-duration: 350ms;
+    -o-transition-duration: 350ms;
+    transition-duration: 350ms;
     width: 100%;
     background-color: #222;
     color: whiteSmoke;
