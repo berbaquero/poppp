@@ -128,12 +128,12 @@
         onTap: function(e, target) {
             var choice = $(target),
                 choiceText = choice.text().toLowerCase();
+            toggleMenu(showingMenu);
             if(choiceText === channel) return;
             channel = choiceText;
             page = 1;
             $('.menu-active').removeClass('menu-active');
             choice.addClass('menu-active');
-            toggleMenu(showingMenu);
             setTimeout(function() {
                 $('#mainWrap').empty();
                 loadShots();
