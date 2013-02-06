@@ -170,6 +170,7 @@ header {
 }
 
 .btn-active { background-color: rgba(0, 0, 0, 0.3); }
+.btn-right { right: 0; }
 
 .backArrow {
     border-bottom: 10px solid transparent;
@@ -186,6 +187,7 @@ header {
     background-position: center;
     background-repeat: no-repeat;
 }
+#refresh { background-image: url('../img/refresh32.png'); }
 
 #menu {
     -webkit-transform: translate3d(0, 0, 0);
@@ -250,4 +252,4 @@ header {
 
 .fuera { left: -9999px; }
 .hide { display: none; }
-.invisible { opacity: 0; }
+.invisible { opacity: 0; }    #refresh { background-image: url('../img/refresh64.png'); }

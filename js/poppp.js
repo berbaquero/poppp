@@ -116,6 +116,16 @@
         activeClass: 'btn-active'
     });
 
+    tappable("#refresh", {
+        onTap: function() {
+            page = 1;
+            $('#mainWrap').empty();
+            if(showingMenu) toggleMenu(showingMenu);
+            loadShots();
+        },
+        activeClass: 'btn-active'
+    });
+
     tappable("#show-menu", {
         onTap: function() {
             if(activeView !== 1) return;
