@@ -77,17 +77,17 @@
             var det = $('#detailWrap');
             var html = Mustache.to_html(detailTemplate, shots[id]);
             det.html(html);
-            $("#title").text(shots[id].title);
+            $(".title").text(shots[id].title).addClass('title-shot').removeClass('title-main');
             slideFromRight();
-            var backButton = $("#navBack");
+            var backButton = $("#nav-back");
             backButton.removeClass('hide');
-            var menuButton = $('#show-menu');
-            menuButton.addClass('invisible');
+            var menuButton = $('#show-menu'),
+                refreshButton = $('#refresh');
+            menuButton.addClass('invisible'), refreshButton.addClass('invisible');
             setTimeout(function() {
-                backButton.removeClass('invisible');
-                menuButton.addClass('hide');
+                backButton.removeClass('invisible'), menuButton.addClass('hide'), refreshButton.addClass('hide');
                 scrollFixDetail();
-            }, 10);
+            }, 200);
         }
     });
 
@@ -100,16 +100,16 @@
         activeClass: 'load-more-active'
     });
 
-    tappable("#navBack", {
+    tappable("#nav-back", {
         onTap: function(e, target) {
             var backButton = $(target);
             backButton.addClass("invisible");
-            var menuButton = $('#show-menu');
-            menuButton.removeClass('hide');
-            $('#title').text('Poppp');
+            var menuButton = $('#show-menu'),
+                refreshButton = $('#refresh');
+            menuButton.removeClass('hide'), refreshButton.removeClass('hide');
+            $('.title').text('Poppp').removeClass('title-shot').addClass('title-main');
             setTimeout(function() {
-                backButton.addClass("hide");
-                menuButton.removeClass('invisible');
+                backButton.addClass("hide"), menuButton.removeClass('invisible'), refreshButton.removeClass('invisible');
             }, 351);
             slideFromLeft();
         },
