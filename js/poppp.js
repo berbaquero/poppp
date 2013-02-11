@@ -86,7 +86,7 @@
             menuButton.addClass('invisible'), refreshButton.addClass('invisible');
             setTimeout(function() {
                 backButton.removeClass('invisible'), menuButton.addClass('hide'), refreshButton.addClass('hide');
-                scrollFixDetail();
+                if(!isDesktop) scrollFixDetail();
             }, 200);
         }
     });
