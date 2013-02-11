@@ -44,7 +44,7 @@ header {
     text-align: center;
     font-size: 22px;
     margin: 0 auto;
-    padding-top: 8px;
+    padding-top: 6px;
     width: 75%;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
     white-space: nowrap;
@@ -169,7 +169,7 @@ header {
     top: 0;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 32px;
+    background-size: 24px;
 }
 
 .btn-right { right: 0; }
