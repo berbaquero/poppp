@@ -7,7 +7,8 @@
         activeView = 1,
         showingMenu = 0,
         channel = 'popular',
-        ancho, shots = {};
+        ancho, shots = {},
+        imgWidth, imgHeigth;
 
     // Templates
     var shotTemplate = "{{#shots}}<article class='shotWrap' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div class='load-more'>Load more</div>",
@@ -52,21 +53,30 @@
 
     function getWidth() {
         ancho = doc.body.offsetWidth;
+        return ancho;
     }
 
     function scrollFixDetail() {
         var detWrap = doc.querySelector('#detailWrap');
         var detailWrapHeight = detWrap.offsetHeight;
-        getWidth();
-        var relativeImageHeight = (ancho) * 0.75;
         var shotInfoHeight = detWrap.querySelector('#shot-info').offsetHeight;
-        var minHeight = detailWrapHeight - relativeImageHeight - shotInfoHeight;
+        var minHeight = detailWrapHeight - imgHeigth - shotInfoHeight;
         $('#force-overflow').css('min-height', minHeight + 1);
     }
 
     function toggleMenu(show) {
         showingMenu = show ? 0 : 1;
         $('#menu').css('-webkit-transform', show ? 'translate3d(0, 0, 0)' : 'translate3d(0, 344px, 0)');
+    }
+
+    function setMinImgSize() {
+        var totalWidth = getWidth();
+        imgWidth = totalWidth - 10; // 10 pixels of side padding - this should be dinamically obtained (todo).
+        imgHeigth = imgWidth * 0.75;
+        $('#detail-image > img').css({
+            'min-height': imgHeigth,
+            'min-width': imgWidth
+        });
     }
 
     // Taps
@@ -84,6 +94,7 @@
             var menuButton = $('#show-menu'),
                 refreshButton = $('#refresh');
             menuButton.addClass('invisible'), refreshButton.addClass('invisible');
+            setMinImgSize();
             setTimeout(function() {
                 backButton.removeClass('invisible'), menuButton.addClass('hide'), refreshButton.addClass('hide');
                 if(!isDesktop) scrollFixDetail();
