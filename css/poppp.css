@@ -91,6 +91,7 @@ header {
     height: 108px;
     width: 50%;
     float: left;
+    border: 2px solid;
 }
 
 .shotWrap:nth-last-child(-n+2) { margin-bottom: 7px; }
@@ -100,8 +101,7 @@ header {
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
-    border-radius: 6px;
-    border: 3px solid #333;
+    border: 2px solid white;
 }
 
 .shotImage {
