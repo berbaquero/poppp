@@ -36,7 +36,6 @@ header {
     background-image: -moz-linear-gradient(top, #FF4040 0%, #890040 100%);
     background-image: linear-gradient(top, #FF4040 0%, #890040 100%);
     height: 44px;
-    box-shadow: 0 3px 10px rgba(50, 50, 50, 0.7);
 }
 
 .title {
