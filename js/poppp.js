@@ -96,7 +96,7 @@
     tappable(".shot-wrap", {
         onTap: function(e, target) {
             if(showingMenu) toggleMenu(showingMenu);
-            var id = $(target).attr("data-shot-id");
+            var id = $(target).data("shot-id");
             var det = $('#detailWrap');
             var html = Mustache.to_html(detailTemplate, shots[id]);
             det.html(html);
@@ -166,7 +166,7 @@
             if(choiceText === channel) return;
             channel = choiceText;
             page = 1;
-            $('.menu-active').removeClass('menu-active');
+            $('#menu > p.menu-active').removeClass('menu-active');
             choice.addClass('menu-active');
             setTimeout(function() {
                 $('#mainWrap').empty();

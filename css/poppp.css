@@ -73,10 +73,7 @@ header {
     z-index: 1;
 }
 
-#mainView, #detailView {
-    -webkit-perspective: 1000;
-    -webkit-backface-visibility: hidden;
-}
+#mainView, #detailView { -webkit-perspective: 1000; -webkit-backface-visibility: hidden; }
 
 .wrapper {
     height: 100%;
