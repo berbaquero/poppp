@@ -8,21 +8,33 @@
         showingMenu = 0,
         channel = 'popular',
         ancho, shots = {},
-        imgWidth, imgHeigth;
+        imgWidth, imgHeigth, lastData, currentColumn = 'two';
 
     // Templates
-    var shotTemplate = "{{#shots}}<article class='shotWrap' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div class='load-more'>Load more</div>",
-        detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>by {{player.name}}</p><p>{{likes_count}}</p></div><div id='force-overflow'></div>";
+    var detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>by {{player.name}}</p><p>{{likes_count}}</p></div><div id='force-overflow'></div>";
+
+    function getMainTemplate(columnNum) {
+        if(!columnNum) columnNum = '';
+        else columnNum += '-column';
+        return "{{#shots}}<article class='shot-wrap " + columnNum + "' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div class='load-more'>Load more</div>";
+    }
 
     // Main functions
 
-    function loadShots() {
+    function loadShots(loadingMore) {
         $("#mainWrap").append("<p class='main-message'>Loading shots...</p>");
         $.ajax({
             dataType: 'jsonp',
             url: getURL(),
             success: function(result) {
                 showShots(result);
+                // If it's loading more shots, add the new shots into the old array
+                if(loadingMore) {
+                    var newShots = lastData.shots.concat(result.shots);
+                    lastData.shots = newShots;
+                } else {
+                    lastData = result;
+                }
             },
             error: function() {
                 $('.main-message').text("Oops! Couldn't load shots. :(");
@@ -32,8 +44,9 @@
     }
 
     function showShots(data) {
+        if(!data) data = lastData;
         $(".main-message").remove();
-        var html = Mustache.to_html(shotTemplate, data);
+        var html = Mustache.to_html(getMainTemplate(currentColumn), data);
         $("#mainWrap").append(html);
 
         var loadedShots = data.shots;
@@ -80,7 +93,7 @@
     }
 
     // Taps
-    tappable(".shotWrap", {
+    tappable(".shot-wrap", {
         onTap: function(e, target) {
             if(showingMenu) toggleMenu(showingMenu);
             var id = $(target).attr("data-shot-id");
@@ -106,7 +119,7 @@
         onTap: function(e, target) {
             if(showingMenu) toggleMenu(showingMenu);
             $(target).remove();
-            loadShots();
+            loadShots(true); // loadingMore = true
         },
         activeClass: 'load-more-active'
     });
@@ -160,7 +173,22 @@
                 loadShots();
             }, 351);
         },
-        activeClass: 'menu-active'
+        activeClass: 'options-active'
+    });
+
+    tappable('#layout-options span', {
+        onTap: function(e, target) {
+            var choice = $(target),
+                column = choice.data('column');
+            toggleMenu(showingMenu);
+            if(column === currentColumn) return;
+            currentColumn = column;
+            $('#layout-options span.menu-active').removeClass('menu-active');
+            choice.addClass('menu-active');
+            $('#mainWrap').empty();
+            showShots();
+        },
+        activeClass: 'options-active'
     });
 
     // Animaciones
