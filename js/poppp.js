@@ -176,16 +176,14 @@
         activeClass: 'options-active'
     });
 
-    tappable('#layout-options span', {
+    tappable('#layout-option p', {
         onTap: function(e, target) {
-            var choice = $(target),
-                column = choice.data('column');
+            var choice = $(target);
             toggleMenu(showingMenu);
-            if(column === currentColumn) return;
-            currentColumn = column;
-            $('#layout-options span.menu-active').removeClass('menu-active');
-            choice.addClass('menu-active');
+            choice.toggleClass('two-icon');
+            choice.toggleClass('three-icon');
             $('#mainWrap').empty();
+            currentColumn = currentColumn === 'two' ? 'three' : 'two';
             showShots();
         },
         activeClass: 'options-active'

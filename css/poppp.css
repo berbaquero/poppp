@@ -218,29 +218,34 @@ header {
 
 #menu > p::before { content: '\2605'; position: absolute; color: whiteSmoke; left: 14px; }
 
+#menu >p:nth-last-child(-n+2) { border-bottom: 1px solid #111; }
+
 .menu-active { text-shadow: 0 0 7px whitesmoke; }
 
-#layout-options { font-weight: bold; text-shadow: 0 1px 1px black; font-size: 18px; }
-
-#layout-options > span {
+#layout-option > p {
+    font-weight: bold;
+    text-shadow: 0 1px 1px black;
+    font-size: 18px;
     color: whiteSmoke;
-    width: 32%;
-    display: inline-block;
     text-align: center;
-    padding: 10px 0;
-}
-
-.menu-subheader {
-    border-top: 1px solid #111;
-    border-bottom: 1px solid #111;
-    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px, rgba(255, 255, 255, 0.1) 0px 1px 0px inset;
     margin: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    text-align: center;
-    color: whiteSmoke;
-    font-size: 16px;
-    padding: 4px 0;
+    padding: 10px;
 }
+
+#layout-option > p::before {
+    content: '';
+    position: absolute;
+    background-size: 24px;
+    width: 24px;
+    height: 24px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    left: 11px;
+}
+
+.two-icon::before { background-image: url('../img/lay-2.png'); }
+
+.three-icon::before { background-image: url('../img/lay-3.png'); }
 
 .options-active { background-color: rgba(0, 0, 0, 0.3); }
 
