@@ -8,7 +8,8 @@
         showingMenu = 0,
         channel = 'popular',
         ancho, shots = {},
-        imgWidth, imgHeigth, lastData, currentColumn = 'two';
+        imgWidth, imgHeigth, lastData, currentColumn = 'two',
+        currentShotURL;
 
     // Templates
     var detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>by {{player.name}}</p><p>{{likes_count}}</p></div><div id='force-overflow'></div>";
@@ -92,6 +93,17 @@
         });
     }
 
+    function openURL(URL) {
+        if(!URL) return;
+        var a = document.createElement('a');
+        a.setAttribute("href", URL);
+        a.setAttribute("target", "_blank");
+
+        var dispatch = document.createEvent("HTMLEvents");
+        dispatch.initEvent("click", true, true);
+        a.dispatchEvent(dispatch);
+    }
+
     // Taps
     tappable(".shot-wrap", {
         onTap: function(e, target) {
@@ -100,16 +112,18 @@
             var det = $('#detailWrap');
             var html = Mustache.to_html(detailTemplate, shots[id]);
             det.html(html);
+            currentShotURL = shots[id].url;
             $(".title").text(shots[id].title).addClass('title-shot').removeClass('title-main');
             slideFromRight();
-            var backButton = $("#nav-back");
-            backButton.removeClass('hide');
+            var backButton = $("#nav-back"),
+                openButton = $('#open-shot');
+            backButton.removeClass('hide'), openButton.removeClass('hide');
             var menuButton = $('#show-menu'),
                 refreshButton = $('#refresh');
             menuButton.addClass('invisible'), refreshButton.addClass('invisible');
             setMinImgSize();
             setTimeout(function() {
-                backButton.removeClass('invisible'), menuButton.addClass('hide'), refreshButton.addClass('hide');
+                backButton.removeClass('invisible'), openButton.removeClass('invisible'), menuButton.addClass('hide'), refreshButton.addClass('hide');
                 if(!isDesktop) scrollFixDetail();
             }, 200);
         }
@@ -126,14 +140,16 @@
 
     tappable("#nav-back", {
         onTap: function(e, target) {
-            var backButton = $(target);
-            backButton.addClass("invisible");
+            var backButton = $(target),
+                openButton = $("#open-shot");
+            backButton.addClass("invisible"), openButton.addClass("invisible");
             var menuButton = $('#show-menu'),
                 refreshButton = $('#refresh');
+            currentShotURL = '';
             menuButton.removeClass('hide'), refreshButton.removeClass('hide');
             $('.title').text('Poppp').removeClass('title-shot').addClass('title-main');
             setTimeout(function() {
-                backButton.addClass("hide"), menuButton.removeClass('invisible'), refreshButton.removeClass('invisible');
+                backButton.addClass("hide"), openButton.addClass('hide'), menuButton.removeClass('invisible'), refreshButton.removeClass('invisible');
             }, 351);
             slideFromLeft();
         },
@@ -187,6 +203,14 @@
             showShots();
         },
         activeClass: 'options-active'
+    });
+
+    tappable('#open-shot', {
+        onTap: function() {
+            var open = window.confirm('View this shot in Dribbble.com?');
+            if(open) openURL(currentShotURL);
+        },
+        activeClass: 'btn-active'
     });
 
     // Animaciones
