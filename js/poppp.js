@@ -2,8 +2,8 @@
     // "Globals"
     var doc = win.document,
         body = doc.body,
-        page = 1,
-        perPage = 30,
+        currentPage = 1,
+        shotsPerPage = 30,
         activeView = 1,
         showingMenu = 0,
         channel = 'popular',
@@ -11,165 +11,214 @@
         imgWidth, imgHeigth, lastData, currentColumn = 'two',
         currentShotURL;
 
-    // Templates
-    var detailTemplate = "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>by {{player.name}}</p><p>{{likes_count}}</p></div><div id='force-overflow'></div>";
-
-    function getMainTemplate(columnNum) {
-        if(!columnNum) columnNum = '';
-        else columnNum += '-column';
-        return "{{#shots}}<article class='shot-wrap " + columnNum + "' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div class='load-more'>Load more</div>";
-    }
+    var View = {
+        Action: {
+            gotToMainSection: function() {
+                View.Section.headerTitle.text('Poppp').removeClass('title-shot').addClass('title-main');
+                View.Button.back.addClass("invisible"), View.Button.open.addClass("invisible");
+                View.Button.menu.removeClass('hide'), View.Button.refresh.removeClass('hide');
+                setTimeout(function() {
+                    View.Button.back.addClass("hide"), View.Button.open.addClass('hide');
+                    View.Button.menu.removeClass('invisible'), View.Button.refresh.removeClass('invisible');
+                }, 351);
+                View.Animation.slideFromLeft();
+            },
+            goToShotDetailSection: function() {
+                View.Animation.slideFromRight();
+                View.Button.back.removeClass('hide'), View.Button.open.removeClass('hide');
+                View.Button.menu.addClass('invisible'), View.Button.refresh.addClass('invisible');
+                View.Misc.setMinImgSize();
+                setTimeout(function() {
+                    View.Button.back.removeClass('invisible'), View.Button.open.removeClass('invisible');
+                    View.Button.menu.addClass('hide'), View.Button.refresh.addClass('hide');
+                    if(!isDesktop) View.Misc.scrollFixDetail();
+                }, 200);
+            },
+            setHeaderShotTitle: function(shotID) {
+                View.Section.headerTitle.text(shots[shotID].title).addClass('title-shot').removeClass('title-main');
+            },
+            toggleMenu: function(show) {
+                showingMenu = show ? 0 : 1;
+                $('#menu').css('-webkit-transform', show ? 'translate3d(0, 0, 0)' : 'translate3d(0, 344px, 0)');
+            }
+        },
+        Section: {
+            main: $("#mainView"),
+            detail: $("#detailView"),
+            headerTitle: $(".title"),
+            header: $("header")
+        },
+        Button: {
+            back: $('#nav-back'),
+            open: $("#open-shot"),
+            menu: $('#show-menu'),
+            refresh: $('#refresh')
+        },
+        Animation: {
+            slideFromRight: function() { // <<<
+                View.Misc.getWidth();
+                View.Section.detail.css("left", ancho);
+                setTimeout(function() {
+                    var translate = 'translate3d(-' + ancho + 'px, 0px, 0px)';
+                    var cssTransform = {
+                        '-webkit-transform': translate,
+                        'transform': translate
+                    };
+                    View.Section.main.addClass("slideTransition").css(cssTransform);
+                    View.Section.detail.addClass("slideTransition").css(cssTransform);
+                    setTimeout(function() { // Quita las propiedades de transition
+                        var cssTransformBack = {
+                            '-webkit-transform': '',
+                            'transform': ''
+                        };
+                        View.Section.detail.css("left", 0).removeClass("slideTransition").removeClass("fuera").css(cssTransformBack);
+                        View.Section.main.removeClass("slideTransition").addClass("fuera").css(cssTransformBack);
+                        activeView = 2;
+                    }, 351);
+                }, 100);
+            },
+            slideFromLeft: function() { // >>>
+                View.Misc.getWidth();
+                View.Section.main.css("left", -ancho);
+                setTimeout(function() {
+                    View.Section.main.addClass("slideTransition").css('-webkit-transform', 'translate3d(' + ancho + 'px, 0px, 0px)');
+                    View.Section.detail.addClass("slideTransition").css('-webkit-transform', 'translate3d(' + ancho + 'px, 0px, 0px)');
+                    setTimeout(function() {
+                        View.Section.main.removeClass("slideTransition").css({
+                            "-webkit-transform": "",
+                            "left": ""
+                        }).removeClass("fuera");
+                        View.Section.detail.css({
+                            "-webkit-transform": "",
+                            "left": ""
+                        }).removeClass("slideTransition");
+                        View.Section.detail.addClass("fuera");
+                    }, 351);
+                }, 50);
+                activeView = 1;
+            }
+        },
+        Template: {
+            detail: "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>by {{player.name}}</p><p>{{likes_count}}</p></div><div id='force-overflow'></div>",
+            getMainTemplate: function(columnNum) {
+                if(!columnNum) columnNum = '';
+                else columnNum += '-column';
+                return "{{#shots}}<article class='shot-wrap " + columnNum + "' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div class='load-more'>Load more</div>";
+            }
+        },
+        Misc: {
+            setMinImgSize: function() {
+                var totalWidth = View.Misc.getWidth();
+                imgWidth = totalWidth - 10; // 10 pixels of side padding - this should be dinamically obtained (todo).
+                imgHeigth = imgWidth * 0.75;
+                $('#detail-image > img').css({
+                    'min-height': imgHeigth,
+                    'min-width': imgWidth
+                });
+            },
+            getWidth: function() {
+                ancho = doc.body.offsetWidth;
+                return ancho;
+            },
+            scrollFixDetail: function() {
+                var detWrap = doc.querySelector('#detailWrap');
+                var detailWrapHeight = detWrap.offsetHeight;
+                var shotInfoHeight = detWrap.querySelector('#shot-info').offsetHeight;
+                var minHeight = detailWrapHeight - imgHeigth - shotInfoHeight;
+                $('#force-overflow').css('min-height', minHeight + 1);
+            }
+        }
+    };
 
     // Main functions
-
-    function loadShots(loadingMore) {
-        $("#mainWrap").append("<p class='main-message'>Loading shots...</p>");
-        $.ajax({
-            dataType: 'jsonp',
-            url: getURL(),
-            success: function(result) {
-                showShots(result);
-                // If it's loading more shots, add the new shots into the old array
-                if(loadingMore) {
-                    var newShots = lastData.shots.concat(result.shots);
-                    lastData.shots = newShots;
-                } else {
-                    lastData = result;
+    var Poppp = {
+        loadShots: function(loadingMore) {
+            $("#mainWrap").append("<p class='main-message'>Loading shots...</p>");
+            $.ajax({
+                dataType: 'jsonp',
+                url: Poppp.getURL(),
+                success: function(result) {
+                    Poppp.showShots(result);
+                    // If it's loading more shots, add the new shots into the old array
+                    if(loadingMore) {
+                        var newShots = lastData.shots.concat(result.shots);
+                        lastData.shots = newShots;
+                    } else {
+                        lastData = result;
+                    }
+                },
+                error: function() {
+                    $('.main-message').text("Oops! Couldn't load shots. :(");
+                    $("#mainWrap").append("<div class='load-more'>Try reloading</div>");
                 }
-            },
-            error: function() {
-                $('.main-message').text("Oops! Couldn't load shots. :(");
-                $("#mainWrap").append("<div class='load-more'>Try reloading</div>");
+            });
+        },
+        showShots: function(data) {
+            if(!data) data = lastData;
+            $(".main-message").remove();
+            var html = Mustache.to_html(View.Template.getMainTemplate(currentColumn), data);
+            $("#mainWrap").append(html);
+
+            var loadedShots = data.shots;
+            for(var i = 0; i < loadedShots.length; i++) {
+                if(shots[loadedShots.id]) continue;
+                shots[loadedShots[i].id] = loadedShots[i];
             }
-        });
-    }
 
-    function showShots(data) {
-        if(!data) data = lastData;
-        $(".main-message").remove();
-        var html = Mustache.to_html(getMainTemplate(currentColumn), data);
-        $("#mainWrap").append(html);
-
-        var loadedShots = data.shots;
-        for(var i = 0; i < loadedShots.length; i++) {
-            if(shots[loadedShots.id]) continue;
-            shots[loadedShots[i].id] = loadedShots[i];
+            currentPage++;
+        },
+        getURL: function() {
+            return "//api.dribbble.com/shots/" + channel + "?page=" + currentPage + "&per_page=" + shotsPerPage + "&callback=?";
         }
-
-        page++;
-    }
-
-    // Misc functions
-
-    function getURL() {
-        return "//api.dribbble.com/shots/" + channel + "?page=" + page + "&per_page=" + perPage + "&callback=?";
-    }
-
-    function getWidth() {
-        ancho = doc.body.offsetWidth;
-        return ancho;
-    }
-
-    function scrollFixDetail() {
-        var detWrap = doc.querySelector('#detailWrap');
-        var detailWrapHeight = detWrap.offsetHeight;
-        var shotInfoHeight = detWrap.querySelector('#shot-info').offsetHeight;
-        var minHeight = detailWrapHeight - imgHeigth - shotInfoHeight;
-        $('#force-overflow').css('min-height', minHeight + 1);
-    }
-
-    function toggleMenu(show) {
-        showingMenu = show ? 0 : 1;
-        $('#menu').css('-webkit-transform', show ? 'translate3d(0, 0, 0)' : 'translate3d(0, 344px, 0)');
-    }
-
-    function setMinImgSize() {
-        var totalWidth = getWidth();
-        imgWidth = totalWidth - 10; // 10 pixels of side padding - this should be dinamically obtained (todo).
-        imgHeigth = imgWidth * 0.75;
-        $('#detail-image > img').css({
-            'min-height': imgHeigth,
-            'min-width': imgWidth
-        });
-    }
-
-    function openURL(URL) {
-        if(!URL) return;
-        var a = document.createElement('a');
-        a.setAttribute("href", URL);
-        a.setAttribute("target", "_blank");
-
-        var dispatch = document.createEvent("HTMLEvents");
-        dispatch.initEvent("click", true, true);
-        a.dispatchEvent(dispatch);
-    }
+    };
 
     // Taps
     tappable(".shot-wrap", {
         onTap: function(e, target) {
-            if(showingMenu) toggleMenu(showingMenu);
-            var id = $(target).data("shot-id");
-            var det = $('#detailWrap');
-            var html = Mustache.to_html(detailTemplate, shots[id]);
+            if(showingMenu) View.Action.toggleMenu(showingMenu);
+            var id = $(target).data("shot-id"),
+                det = $('#detailWrap');
+
+            var html = Mustache.to_html(View.Template.detail, shots[id]);
             det.html(html);
+
             currentShotURL = shots[id].url;
-            $(".title").text(shots[id].title).addClass('title-shot').removeClass('title-main');
-            slideFromRight();
-            var backButton = $("#nav-back"),
-                openButton = $('#open-shot');
-            backButton.removeClass('hide'), openButton.removeClass('hide');
-            var menuButton = $('#show-menu'),
-                refreshButton = $('#refresh');
-            menuButton.addClass('invisible'), refreshButton.addClass('invisible');
-            setMinImgSize();
-            setTimeout(function() {
-                backButton.removeClass('invisible'), openButton.removeClass('invisible'), menuButton.addClass('hide'), refreshButton.addClass('hide');
-                if(!isDesktop) scrollFixDetail();
-            }, 200);
+
+            View.Action.setHeaderShotTitle(id);
+            View.Action.goToShotDetailSection();
         }
     });
 
     tappable(".load-more", {
         onTap: function(e, target) {
-            if(showingMenu) toggleMenu(showingMenu);
+            if(showingMenu) View.Action.toggleMenu(showingMenu);
             $(target).remove();
-            loadShots(true); // loadingMore = true
+            Poppp.loadShots(true); // loadingMore = true
         },
         activeClass: 'load-more-active'
     });
 
     tappable("#nav-back", {
         onTap: function(e, target) {
-            var backButton = $(target),
-                openButton = $("#open-shot");
-            backButton.addClass("invisible"), openButton.addClass("invisible");
-            var menuButton = $('#show-menu'),
-                refreshButton = $('#refresh');
             currentShotURL = '';
-            menuButton.removeClass('hide'), refreshButton.removeClass('hide');
-            $('.title').text('Poppp').removeClass('title-shot').addClass('title-main');
-            setTimeout(function() {
-                backButton.addClass("hide"), openButton.addClass('hide'), menuButton.removeClass('invisible'), refreshButton.removeClass('invisible');
-            }, 351);
-            slideFromLeft();
+            View.Action.gotToMainSection();
         },
         activeClass: 'btn-active'
     });
 
     tappable("#refresh", {
         onTap: function() {
-            page = 1;
+            currentPage = 1;
             $('#mainWrap').empty();
-            if(showingMenu) toggleMenu(showingMenu);
-            loadShots();
+            if(showingMenu) View.Action.toggleMenu(showingMenu);
+            Poppp.loadShots();
         },
         activeClass: 'btn-active'
     });
 
     tappable("#show-menu", {
         onTap: function() {
-            if(activeView !== 1) return;
-            toggleMenu(showingMenu);
+            if(activeView === 1) View.Action.toggleMenu(showingMenu);
         },
         activeClass: 'btn-active'
     });
@@ -178,15 +227,15 @@
         onTap: function(e, target) {
             var choice = $(target),
                 choiceText = choice.text().toLowerCase();
-            toggleMenu(showingMenu);
+            View.Action.toggleMenu(showingMenu);
             if(choiceText === channel) return;
             channel = choiceText;
-            page = 1;
+            currentPage = 1;
             $('#menu > p.menu-active').removeClass('menu-active');
             choice.addClass('menu-active');
             setTimeout(function() {
                 $('#mainWrap').empty();
-                loadShots();
+                Poppp.loadShots();
             }, 351);
         },
         activeClass: 'options-active'
@@ -195,12 +244,12 @@
     tappable('#layout-option p', {
         onTap: function(e, target) {
             var choice = $(target);
-            toggleMenu(showingMenu);
+            View.Action.toggleMenu(showingMenu);
             choice.toggleClass('two-icon');
             choice.toggleClass('three-icon');
             $('#mainWrap').empty();
             currentColumn = currentColumn === 'two' ? 'three' : 'two';
-            showShots();
+            Poppp.showShots();
         },
         activeClass: 'options-active'
     });
@@ -212,72 +261,6 @@
         },
         activeClass: 'btn-active'
     });
-
-    // Animaciones
-    var slideFromLeft = function() { // >>>
-            var main = $("#mainView");
-            var det = $("#detailView");
-            getWidth();
-            main.css("left", -ancho);
-            setTimeout(function() {
-                main.addClass("slideTransition").css('-webkit-transform', 'translate3d(' + ancho + 'px, 0px, 0px)');
-                det.addClass("slideTransition").css('-webkit-transform', 'translate3d(' + ancho + 'px, 0px, 0px)');
-                setTimeout(function() {
-                    main.removeClass("slideTransition").css({
-                        "-webkit-transform": "",
-                        "left": ""
-                    }).removeClass("fuera");
-                    det.css({
-                        "-webkit-transform": "",
-                        "left": ""
-                    }).removeClass("slideTransition");
-                    sacar("#detailView");
-                }, 351);
-            }, 50);
-            activeView = 1;
-        };
-
-    var slideFromRight = function() { // <<<
-            var main = $("#mainView");
-            var det = $("#detailView");
-            getWidth();
-            det.css("left", ancho);
-            setTimeout(function() {
-                var translate = 'translate3d(-' + ancho + 'px, 0px, 0px)';
-                var cssTransform = {
-                    '-webkit-transform': translate,
-                    'transform': translate
-                };
-                main.addClass("slideTransition").css(cssTransform);
-                det.addClass("slideTransition").css(cssTransform);
-                setTimeout(function() { // Quita las propiedades de transition
-                    var cssTransformBack = {
-                        '-webkit-transform': '',
-                        'transform': ''
-                    };
-                    det.css("left", 0).removeClass("slideTransition").removeClass("fuera").css(cssTransformBack);
-                    main.removeClass("slideTransition").addClass("fuera").css(cssTransformBack);
-                    activeView = 2;
-                }, 351);
-            }, 100);
-        };
-
-    // Metodos de vistas
-    var sacar = function(element) {
-            var el = $(element);
-            el.addClass("fuera");
-        };
-
-    var ingresar = function(element) {
-            var el = $(element);
-            el.removeClass("fuera");
-            return el;
-        };
-
-    var ensenar = function(element) {
-            var el = $(element);
-            el.removeClass("invisible");
-        };
 
     var supportOrientation = typeof window.orientation !== 'undefined',
         getScrollTop = function() {
@@ -294,11 +277,22 @@
             }, 1);
         };
 
+    function openURL(URL) {
+        if(!URL) return;
+        var a = document.createElement('a');
+        a.setAttribute("href", URL);
+        a.setAttribute("target", "_blank");
+
+        var dispatch = document.createEvent("HTMLEvents");
+        dispatch.initEvent("click", true, true);
+        a.dispatchEvent(dispatch);
+    }
+
     // Launch
-    loadShots();
+    Poppp.loadShots();
     scrollTop();
 
-    $("header").on('touchmove', function(e) {
+    View.Section.header.on('touchmove', function(e) {
         e.preventDefault();
     }, false);
 
