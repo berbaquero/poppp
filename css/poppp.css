@@ -275,7 +275,7 @@ header {
 .hide { display: none; }
 .invisible { opacity: 0; }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2) {    
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
     #show-menu { background-image: url('../img/list64.png'); }
     #nav-back { background-image: url('../img/back64.png'); }
     #refresh { background-image: url('../img/refresh64.png'); }
