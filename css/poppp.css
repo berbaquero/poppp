@@ -16,7 +16,6 @@ body {
 }
 
 * {
-    color: #373737;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -25,6 +24,8 @@ body {
 html { height: 100%; }
 
 a { color: #999; }
+
+ul { list-style: none; margin: 0; padding: 0; }
 
 header {
     top: 0;

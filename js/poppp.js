@@ -103,7 +103,7 @@
             getMainTemplate: function(columnNum) {
                 if(!columnNum) columnNum = '';
                 else columnNum += '-column';
-                return "{{#shots}}<article class='shot-wrap " + columnNum + "' data-shot-id='{{id}}'><div class='shot' style='background-image: url({{image_teaser_url}})'></div></article>{{/shots}}<div class='load-more'>Load more</div>";
+                return "<ul>{{#shots}}<li class='shot-wrap " + columnNum + "'><article class='shot' data-shot-id='{{id}}' style='background-image: url({{image_teaser_url}})'></article></li>{{/shots}}</ul><div class='load-more'>Load more</div>";
             }
         },
         Misc: {
@@ -173,7 +173,7 @@
     };
 
     // Taps
-    tappable(".shot-wrap", {
+    tappable(".shot", {
         onTap: function(e, target) {
             if(showingMenu) View.Action.toggleMenu(showingMenu);
             var id = $(target).data("shot-id"),
