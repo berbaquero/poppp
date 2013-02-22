@@ -83,12 +83,12 @@ header {
     padding: 5px 5px 10px;
 }
 
-.shot-wrap { border: 2px solid; }
+.shot-wrap { border: 2px solid transparent; }
 
 /* Column Layouts */
 .one-column { width: 200px; height: 150px; margin: 0 auto; }
 
-.two-column { width: 50%; height: 118px; float: left; }
+.two-column { width: 50%; height: 117px; float: left; }
 
 .three-column { width: 33%; height: 78px; float: left; }
 
@@ -99,7 +99,7 @@ header {
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
-    border: 2px solid white;
+    border: 1px solid #999;
 }
 
 .shotImage {
@@ -117,7 +117,7 @@ header {
 
 #detail-image { padding: 0 0 5px; }
 
-#detail-image img { width: 100%; border: 3px solid #F5F5F5; }
+#detail-image > img { width: 100%; border: 2px solid #999; }
 
 #shot-info > p {
     color: whitesmoke;
