@@ -15,22 +15,24 @@
         Action: {
             gotToMainSection: function() {
                 V.Section.headerTitle.text('Poppp').removeClass('title-shot').addClass('title-main');
-                V.Button.back.addClass("invisible"), V.Button.open.addClass("invisible");
-                V.Button.menu.removeClass('hide'), V.Button.refresh.removeClass('hide');
+                var btnBack = V.Button.back, btnMenu = V.Button.menu, btnOpen = V.Button.open, btnRefresh = V.Button.refresh;
+                btnBack.addClass("invisible"), btnOpen.addClass("invisible");
+                btnMenu.removeClass('hide'), btnRefresh.removeClass('hide');
                 setTimeout(function() {
-                    V.Button.back.addClass("hide"), V.Button.open.addClass('hide');
-                    V.Button.menu.removeClass('invisible'), V.Button.refresh.removeClass('invisible');
+                    btnBack.addClass("hide"), btnOpen.addClass('hide');
+                    btnMenu.removeClass('invisible'), btnRefresh.removeClass('invisible');
                 }, 351);
                 V.Anims.slideFromLeft();
             },
             goToShotDetailSection: function() {
                 V.Anims.slideFromRight();
-                V.Button.back.removeClass('hide'), V.Button.open.removeClass('hide');
-                V.Button.menu.addClass('invisible'), V.Button.refresh.addClass('invisible');
+                var btnBack = V.Button.back, btnMenu = V.Button.menu, btnOpen = V.Button.open, btnRefresh = V.Button.refresh;
+                btnBack.removeClass('hide'), btnOpen.removeClass('hide');
+                btnMenu.addClass('invisible'), btnRefresh.addClass('invisible');
                 V.Misc.setMinImgSize();
                 setTimeout(function() {
-                    V.Button.back.removeClass('invisible'), V.Button.open.removeClass('invisible');
-                    V.Button.menu.addClass('hide'), V.Button.refresh.addClass('hide');
+                    btnBack.removeClass('invisible'), btnOpen.removeClass('invisible');
+                    btnMenu.addClass('hide'), btnRefresh.addClass('hide');
                     if(!isDesktop) V.Misc.scrollFixDetail();
                 }, 200);
             },
