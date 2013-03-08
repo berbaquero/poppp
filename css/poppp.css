@@ -11,7 +11,7 @@ body {
     word-wrap: break-word;
     -webkit-text-size-adjust: none;
     -ms-text-size-adjust: none;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     position: relative;
 }
 
@@ -54,7 +54,7 @@ header {
 
 .title-main { font-family: 'Berkshire Swash'; }
 
-.title-shot { font-weight: bold; font-size: 20px; padding-top: 9px; }
+.title-shot { font-weight: 700; font-size: 20px; padding-top: 9px; }
 
 #container {
     position: absolute;
@@ -138,7 +138,7 @@ header {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-#shot-info > p:first-child { font-weight: bold; }
+#shot-info > p:first-child { font-weight: 700; }
 
 #shot-info > p + p + p::before {
     content: '\2665';
@@ -208,7 +208,7 @@ header {
 #menu > p {
     margin: 0;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     color: whiteSmoke;
     padding: 10px;
     text-align: center;
@@ -225,7 +225,7 @@ header {
 .menu-active { text-shadow: 0 0 7px whitesmoke; }
 
 #layout-option > p {
-    font-weight: bold;
+    font-weight: 700;
     text-shadow: 0 1px 1px black;
     font-size: 18px;
     color: whiteSmoke;
@@ -261,15 +261,15 @@ header {
     cursor: pointer;
     font-size: 14px;
     line-height: 24px;
-    font-weight: bold;
     box-shadow: rgba(255, 255, 255, .4) 0 1px 0 inset, 
                 rgba(255, 255, 255, .3) 0 20px 30px -10px inset,
                 rgba(0, 0, 0, .6) 0 1px 2px;
+    font-weight: 700;    
 }
 
 .load-more-active { box-shadow: 0 2px 7px black inset; background-color: #4c4c4c; }
 
-.main-message { color: #F5F5F5; width: 100%; text-align: center; font-weight: bold; text-shadow: 0 1px 1px black; }
+.main-message { color: #F5F5F5; width: 100%; text-align: center; font-weight: 700; text-shadow: 0 1px 1px black; }
 
 #force-overflow { width: 100%; }
 
