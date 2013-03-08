@@ -1,5 +1,5 @@
 ::-webkit-scrollbar { width: 7px; }
-::-webkit-scrollbar-track { border-radius: 10px; background-color: #333; }
-::-webkit-scrollbar-thumb { border-radius: 10px; background-color: #444; }
+::-webkit-scrollbar-track { border-radius: 10px; }
+::-webkit-scrollbar-thumb { border-radius: 10px; background-color: rgba(0, 0, 0, .3); }
 
 #layout-options span, #menu p { cursor: default; }
