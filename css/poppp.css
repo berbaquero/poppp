@@ -105,6 +105,8 @@ header {
     background-position: center;
     border: 2px solid white;
     background-color: #ddd;
+    max-width: 200px;
+    max-height: 150px;
 }
 
 .shotImage {
@@ -122,7 +124,7 @@ header {
 
 #detail-image { padding: 0 0 5px; }
 
-#detail-image > img { width: 100%; border: 2px solid white; }
+#detail-image > img { width: 100%; border: 2px solid white; max-height: 600px; max-width: 800px; }
 
 #shot-info > p {
     color: whitesmoke;
@@ -277,4 +279,8 @@ header {
     #show-menu { background-image: url('../img/list64.png'); }
     #nav-back { background-image: url('../img/back64.png'); }
     #refresh { background-image: url('../img/refresh64.png'); }
+}
+
+@media only screen and (min-width: 630px) {
+    #mainWrap { margin: 0 auto; width: 630px; }
 }
