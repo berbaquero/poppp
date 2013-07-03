@@ -30,20 +30,23 @@
             <div id="show-menu" class="btn"></div>
             <p class="title title-main">Poppp</p>
             <div id="refresh" class="btn btn-right"></div>
+            <div id="settings" class="btn btn-right invisible hide"></div>
             <div id="open-shot" class="btn btn-right invisible hide"></div>
         </header>
 
         <div id="container">
-            <div id="menu">
-                <p class="menu-active">Popular</p>
-                <p>Debuts</p>
-                <p>Everyone</p>
-                <div id="layout-option">
-                    <p class="two-icon">Layout</p>
-                </div>
-            </div>
+            <nav id="menu">
+                <ul id="nav">
+                    <li><p data-choice="following">Following</p></li>
+                    <li><p data-choice="popular">Popular</p></li>
+                    <li><p data-choice="debuts">Debuts</p></li>
+                    <li><p data-choice="everyone">Everyone</p></li>
+                    <li><p data-choice="local bucket">Local Bucket</p></li>
+                    <li><p data-choice="layout">Layout</p></li>
+                </ul>
+            </nav>
             <div class="view" id="mainView">
-                <div class="wrapper" id="mainWrap"></div>
+                <div class="wrapper" id="mainWrap" data-channel=""></div>
             </div>
             <div class="view fuera" id="detailView">
                 <div class="wrapper" id="detailWrap"></div>
