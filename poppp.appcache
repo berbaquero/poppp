@@ -1,0 +1,23 @@
+CACHE MANIFEST
+
+#v2.0.0 04-07-2013
+
+css/desk.css
+css/normalize.css
+css/poppp.css
+
+img/back32.png
+img/comment64.png
+img/like64.png
+img/list32.png
+img/open.png
+img/refresh32.png
+img/save64.png
+img/settings64.png
+
+js/zepto.js
+js/libs.js
+js/poppp.js
+
+NETWORK:
+*
