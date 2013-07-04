@@ -153,7 +153,8 @@ V = #Views
 
   Misc:
     getWidth: ->
-      body.offsetWidth
+      width = body.offsetWidth
+      width
 
 M = # Models
   localBucket:
