@@ -245,10 +245,10 @@ M = # Models
 T = # Templates
   getMainViewTemplate: (columnNumber) ->
     if columnNumber is "one"
-      "{{#shots}}<article class='one-column'><div class='shot-player'><div style='background-image: url({{player.avatar_url}})'></div></div><div class='shot-image'><img class='shot' data-shot-id='{{id}}' src='{{image_teaser_url}}'/></div><div class='shot-data'><p class='shot-data-likes'>{{likes_count}}</p><p class='shot-data-comments'>{{comments_count}}</p></div></article>{{/shots}}"
+      "{{#shots}}<article class='one-column'><div class='shot-player'><div style='background-image: url({{player.avatar_url}})'></div></div><div class='shot-image'><img class='shot' data-shot-id='{{id}}' src='{{image_teaser_url}}' onLoad='this.classList.add(\"done\")'/></div><div class='shot-data'><p class='shot-data-likes'>{{likes_count}}</p><p class='shot-data-comments'>{{comments_count}}</p></div></article>{{/shots}}"
     else
       columnNumber += "-column"
-      "{{#shots}}<article class='" + columnNumber + "'><img class='shot' data-shot-id='{{id}}' src='{{image_teaser_url}}'/></article>{{/shots}}"
+      "{{#shots}}<article class='" + columnNumber + "'><img class='shot' data-shot-id='{{id}}' src='{{image_teaser_url}}' onLoad='this.classList.add(\"done\")'/></article>{{/shots}}"
 
   detailView: "<div id='detail-image'><img src='{{image_url}}'/></div><div id='shot-info'><p>{{title}}</p><p>by {{player.name}}</p><p>{{likes_count}}</p><div class='btn-save' data-shot-id='{{id}}'></div></div><div id='force-overflow'></div>"
 
@@ -480,9 +480,10 @@ Poppp.loadShots()
 scrollTop()
 V.Action.changeStreamSelection()
 
-V.Header.on "touchmove", (e) ->
-  e.preventDefault()
-, false
+if win.navigator.standalone # only on iOS in fullscreen
+  V.Header.on "touchmove", (e) ->
+    e.preventDefault()
+  , false
 
 win.applicationCache.addEventListener "updateready", (e) ->
   update = window.confirm "Update ready. Refresh to update?"

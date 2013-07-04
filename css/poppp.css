@@ -166,7 +166,9 @@ header {
 
 .three-column .shot { min-width: 100px; min-height: 75px; width: 100%; }
 
-.shot { height: auto max-width: 200px; max-height: 150px; }
+.shot { -webkit-backface-visibility: hidden; opacity: 0; height: auto; max-width: 200px; max-height: 150px; }
+
+.done { opacity: 1; -webkit-transition: opacity 300ms ease-out; }
 
 .shotImage {
     width: 100%;
