@@ -52,7 +52,6 @@ V = #Views
       btnOpen.removeClass("hide")
       btnMenu.addClass("invisible")
       btnRightCorner.addClass("invisible")
-      V.Misc.setMinImgSize()
       setTimeout ->
         btnBack.removeClass("invisible")
         btnOpen.removeClass("invisible")
@@ -153,17 +152,8 @@ V = #Views
       activeView = 1
 
   Misc:
-    setMinImgSize: ->
-      totalWidth = V.Misc.getWidth()
-      imgWidth = totalWidth - 10 # 10 pixels of side padding - this should be dinamically obtained (todo).
-      imgHeigth = imgWidth * 0.75
-      $("#detail-image > img").css
-          "min-height": imgHeigth
-          "min-width": imgWidth
-      
     getWidth: ->
-      width = body.offsetWidth
-      width
+      body.offsetWidth
 
 M = # Models
   localBucket:
@@ -445,6 +435,10 @@ tappable(".btn-save",
 
   activeClass: "btn-save-active"
 )
+
+# Swipes
+V.DetailView.swipeRight ->
+  V.Action.goToMainView()
 
 supportOrientation = typeof window.orientation isnt "undefined"
 getScrollTop = ->
