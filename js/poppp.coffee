@@ -290,11 +290,7 @@ Poppp =
     data = lastData unless data
     $(".main-message").remove()
     html = Mustache.to_html T.getMainViewTemplate(columns[M.Column.get()]), data
-    main = V.MainWrap
-    main.append html
-    setTimeout ->
-      main.css "opacity", 1
-    , 100
+    V.MainWrap.append html
 
     loadedShots = data.shots
     for shot in loadedShots
