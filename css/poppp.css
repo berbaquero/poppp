@@ -153,7 +153,14 @@ header {
 
 .one-column .shot { border: 2px solid white; min-width: 200px; min-height: 150px; }
 
-.two-column { width: 50%; float: left; border: 2px solid transparent; margin-bottom: -5px; }
+.two-column {
+    width: 50%;
+    float: left;
+    border: 2px solid transparent;
+    margin-bottom: -5px; 
+    min-width: 160px;
+    min-height: 127px;
+}
 
 .two-column .shot { border: 3px solid white; width: 100%; }
 
