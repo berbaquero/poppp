@@ -1,7 +1,7 @@
 win = window
 doc = win.document
 body = doc.body
-store = win.localStorage
+store = if win.fluid then allCookies else win.localStorage # if using Poppp as a Fluid app, set local store with cookies
 # Pseudo-Globals
 currentPage = 1
 shotsPerPage = 30
