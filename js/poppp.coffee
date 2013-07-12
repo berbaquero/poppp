@@ -21,6 +21,7 @@ Msgs =
   enterUsername: "Enter your Dribbble username"
   shotSaved: "Shot saved to Local Bucket"
   loadingError: "Oops! Couldn't load shots. :("
+  update: "Poppp updated. Refresh for latest version?"
 
 V = #Views
   Action:
@@ -274,7 +275,7 @@ Poppp =
 
       when "local bucket"
         M.localBucket.load() if M.localBucket.shots.length is 0
-        Poppp.showShots(M.localBucket)
+        Poppp.showShots M.localBucket
         lastData.shots = M.localBucket.shots
 
   showShots: (data) ->
@@ -392,10 +393,10 @@ tappable("#show-menu",
   activeClass: "btn-active"
 )
 
-tappable("#menu p",
+tappable("#nav li",
   onTap: (e, target) ->
     choice = $ target
-    choiceText = choice.text().toLowerCase()
+    choiceText = choice.children().data("choice")
     V.Action.toggleMenu(showingMenu)
 
     if choiceText is "layout"
@@ -470,6 +471,7 @@ V.Action.switch3ColumnWrapper()
 Poppp.loadShots()
 scrollTop()
 V.Action.changeStreamSelection()
+M.localBucket.load() if M.localBucket.shots.length is 0 # load localBucket
 
 if win.navigator.standalone # only on iOS in fullscreen
   V.Header.on "touchmove", (e) ->
@@ -477,7 +479,7 @@ if win.navigator.standalone # only on iOS in fullscreen
   , false
 
 win.applicationCache.addEventListener "updateready", (e) ->
-  update = window.confirm "Update ready. Refresh to update?"
+  update = window.confirm Msgs.update
   window.location.reload() if update
 
 isDesktop = !/iPhone|iPod|iPad|Android/.test navigator.userAgent
