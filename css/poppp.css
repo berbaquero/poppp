@@ -190,6 +190,8 @@ header {
 
 /* Detail View */
 
+#detail-image { text-align: center; }
+
 #detail-image > img {
     width: 100%;
     max-width: 800px; max-height: 600px;
@@ -203,6 +205,7 @@ header {
     padding: 0 5px;
     text-align: center;
     text-shadow: 0 1px 1px black;
+    margin-top: -5px;
 }
 
 #shot-info { padding: 10px 0; background-color: rgba(0, 0, 0, 0.2); }
